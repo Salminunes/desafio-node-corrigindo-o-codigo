@@ -29,20 +29,20 @@ app.post("/repositories", (request, response) => {
 });
 
 app.put("/repositories/:id", (request, response) => {
-  const { id } = request.params;
-  const { title, techs, url } = request.body;
+  const { id } = request.params; // peguei por parametro o id do repositorio a ser alterado
+  const { title, techs, url } = request.body; //os valores que vao ser alterados passado pelo body
 
-  const repositoryIndex = repositories.findIndex(repository => repository.id === id);
+  const repositoryIndex = repositories.findIndex(repository => repository.id === id); //Aqui crio uma constante que ache o index do repositorio que tenha o id igual ao id do parametro
 
   if (repositoryIndex < 0) {
-    return response.status(404).json({ error: "Repository not found" });
+    return response.status(404).json({ error: "Repository not found" }); //se retornar -1 avisa que não foi achado repositorio com esse id.
   }
 
-  const repository = { ...repositories[repositoryIndex], title, techs, url };
+  const repository = { ...repositories[repositoryIndex], title, techs, url }; //Pega o objeto do index
 
-  repositories[repositoryIndex] = repository;
+  repositories[repositoryIndex] = repository; //dentro do array de repositorios, no local do index, coloco o repositorio alterado!
 
-  return response.json(repository);
+  return response.json(repository); //retorna o repositorio alterado
 });
 
 app.delete("/repositories/:id", (request, response) => {
